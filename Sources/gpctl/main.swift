@@ -23,14 +23,16 @@ func usage() -> Never {
 
 guard let cmd = args.first else { usage() }
 
-@MainActor func runMain(_ body: @escaping @MainActor () async -> Void) -> Never {
-    let app = NSApplication.shared
-    app.setActivationPolicy(.prohibited)
-    Task { @MainActor in
-        await body()
-        exit(0)
+func runMain(_ body: @escaping @MainActor () async -> Void) -> Never {
+    MainActor.assumeIsolated {
+        let app = NSApplication.shared
+        app.setActivationPolicy(.prohibited)
+        Task { @MainActor in
+            await body()
+            exit(0)
+        }
+        app.run()
     }
-    app.run()
     exit(0)
 }
 

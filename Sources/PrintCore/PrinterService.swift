@@ -73,6 +73,10 @@ public struct SubmitOptions: Sendable {
     public var colorMode: ColorMode
     public var copies: Int
     public var duplex: Bool
+    public init(media: String, orientation: Orientation, scaling: Scaling, colorMode: ColorMode, copies: Int, duplex: Bool) {
+        self.media = media; self.orientation = orientation; self.scaling = scaling
+        self.colorMode = colorMode; self.copies = copies; self.duplex = duplex
+    }
 }
 
 public enum PrinterError: Error, LocalizedError {
