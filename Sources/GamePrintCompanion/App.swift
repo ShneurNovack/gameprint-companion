@@ -329,6 +329,16 @@ enum CommandLineTools {
             }
         case "--unpair":
             CredentialStore.delete(); print("Credentials removed"); exit(0)
+        case "--login-item" where a.count >= 3:
+            let svc = SMAppService.agent(plistName: LoginItem.agentPlist)
+            do {
+                if a[2] == "on" { try svc.register() }
+                if a[2] == "off" { try svc.unregister() }
+            } catch {
+                print("Failed: \(error.localizedDescription)")
+            }
+            print("login item status: \(svc.status.rawValue) (0 notRegistered, 1 enabled, 2 requiresApproval, 3 notFound)")
+            exit(0)
         case "--version":
             print(AppInfo.version); exit(0)
         default:

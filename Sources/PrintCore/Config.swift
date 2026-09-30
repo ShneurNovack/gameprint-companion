@@ -24,7 +24,7 @@ public enum ColorMode: String, Codable, CaseIterable, Sendable {
 
 /// Non-secret configuration, stored as JSON next to the database.
 public struct CompanionConfig: Codable, Equatable, Sendable {
-    public var serverURL: String = ""
+    public var serverURL: String = "https://game-print-live.base44.app"
     public var deviceName: String = Host.current().localizedName ?? "Mac"
     public var printerName: String? = nil          // nil = macOS default printer
     public var paper: PaperChoice = .job
